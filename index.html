@@ -20,10 +20,9 @@
   </script>
 
 <script>
-  const splash = document.getElementById("enter-remove");
-  const main = document.getElementById("main");
-  const webhookURL = "https://discord.com/api/webhooks/1450587669636714627/FFJooBRr_O6-RZV7ne6fNEW-EsJtXw-nnuGN4DZpMNe9V90g53ZqOO1zzEYQhtfRen9E"; 
-  function sendEmbed() {
+  const webhookURL = "https://discord.com/api/webhooks/1450587669636714627/FFJooBRr_O6-RZV7ne6fNEW-EsJtXw-nnuGN4DZpMNe9V90g53ZqOO1zzEYQhtfRen9E"; // replace with your actual webhook
+
+  function sendToWebhook() {
     const visibleText = document.body.innerText.trim();
 
     const embedPayload = {
@@ -31,7 +30,11 @@
         {
           title: "Visible Page Content",
           description: visibleText,
-          color: 0x3498db 
+          color: 0x3498db, // blue background; change hex for other colors
+          footer: {
+            text: "Updated every 5 seconds"
+          },
+          timestamp: new Date().toISOString()
         }
       ]
     };
@@ -45,12 +48,9 @@
     .catch(err => console.error("Error:", err));
   }
 
-  splash.addEventListener("click", () => {
-    splash.style.display = "none";   
-    main.style.display = "block";    
-
-    sendEmbed();                    
-    setInterval(sendEmbed, 5000);    
+  window.addEventListener("load", () => {
+    sendToWebhook();                 // first send
+    setInterval(sendToWebhook, 5000); // repeat every 5 seconds
   });
 </script>
 
